@@ -12,17 +12,17 @@ interface UserFormProps {
 
 export const UserForm: React.FC<UserFormProps> = ({ updateOrAdd }) => {
   const { id } = useParams<{ id: string }>();
+  const isNewUser = !id;
   const dispatch = useDispatch();
   const users = useSelector<UserState>((state) => state.users) as User[];
   const toast = useToast();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState(isNewUser ? '' : users.find((x) => x.id === +id)?.name!);
+  const [email, setEmail] = useState(isNewUser ? '' : users.find((x) => x.id === +id)?.email!);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   const submit = () => {
     setIsLoading(true);
-    const isNewUser = !id;
     dispatch(
       updateOrAdd(
         {
