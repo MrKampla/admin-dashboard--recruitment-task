@@ -49,7 +49,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Flex direction="row" p={8} alignItems="center" justifyContent="space-between">
+      <Flex direction="row" p={[1, 2]} alignItems="center" justifyContent="space-between">
         <Text fontSize="xl">User List</Text>
         <Button mr={3} onClick={() => history.push('/form/new')} _hover={{ bg: '#2F855A' }} backgroundColor={'#38A169'}>
           Add new user
@@ -58,9 +58,14 @@ export const Dashboard: React.FC = () => {
       <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
+            <Tr maxW={['10px', '30px', '100px']} padding={['1px', '8px']} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column: any) => (
-                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <Th
+                  padding={['1px', '8px']}
+                  fontSize={['8px', '12px']}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  maxW={['10px', '30px', '100px']}
+                  w={column.Header === 'Id' ? ['16px', '32px'] : undefined}>
                   {column.render('Header')}
                   <chakra.span pl="4">
                     {column.isSorted ? (
@@ -80,18 +85,18 @@ export const Dashboard: React.FC = () => {
           {rows.map((row) => {
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr maxW={['10px', '30px', '100px']} padding={['1px', '8px']} fontSize={['8px', '10px', '12px', '16px']} {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   if (cell.column.Header === 'Edit') {
                     return (
-                      <Td {...cell.getCellProps()} max={'200px'} padding={['1px', '8px']} pt="0px" pb="0px" textAlign="center">
+                      <Td maxW={['10px', '30px', '100px']} {...cell.getCellProps()} padding={['1px', '8px']} pt="0px" pb="0px" textAlign="center">
                         <Button
                           onClick={() => history.push(`/form/${row.original.id}`)}
-                          padding="0px"
                           aria-label="Edit"
                           mt="auto"
                           mb="auto"
-                          p={4}
+                          padding={['2px', '8px', '16px']}
+                          fontSize={['12px', '16px']}
                           _hover={{ bg: '#B7791F' }}
                           backgroundColor={'#D69E2E'}>
                           Edit
@@ -102,14 +107,21 @@ export const Dashboard: React.FC = () => {
 
                   if (cell.column.Header === 'Delete') {
                     return (
-                      <Td {...cell.getCellProps()} max={'200px'} padding={['1px', '8px']} pt="0px" pb="0px" textAlign="center">
-                        {console.log(row)}
+                      <Td {...cell.getCellProps()} maxW={['10px', '30px', '100px']} padding={['1px', '8px']} pt="0px" pb="0px" textAlign="center">
                         <DeleteUserModal userId={+row.id} />
                       </Td>
                     );
                   }
 
-                  return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>;
+                  return (
+                    <Td
+                      maxW={['10px', '30px', '100px']}
+                      width={cell.column.Header === 'Id' ? ['16px', '32px'] : undefined}
+                      padding={['1px', '8px']}
+                      {...cell.getCellProps()}>
+                      {cell.render('Cell')}
+                    </Td>
+                  );
                 })}
               </Tr>
             );

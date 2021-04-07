@@ -56,7 +56,7 @@ export const UserForm: React.FC<UserFormProps> = ({ updateOrAdd }) => {
         <Box textAlign="left" width="full">
           <Heading mb={10}>Form</Heading>
         </Box>
-        <Box width="full" p={16}>
+        <Box width="full" maxWidth="1024px" p={[1, 2, 4, 8, 16]}>
           <FormControl isRequired>
             <Flex direction="row" alignItems="center">
               <FormLabel w={16}>Name</FormLabel>
@@ -69,20 +69,20 @@ export const UserForm: React.FC<UserFormProps> = ({ updateOrAdd }) => {
               <Input type="Email" placeholder="Email" size="lg" value={email} onChange={(event) => setEmail(event.currentTarget.value)} />
             </Flex>
           </FormControl>
-          <Flex width="sm" marginLeft="auto" mt={8}>
-            <Button onClick={() => history.push('/')} disabled={isLoading} variant="outline" type="submit" width="full" mt={4}>
+          <Flex maxWidth="sm" marginLeft="auto" mt={8}>
+            <Button width="full" onClick={() => history.push('/')} disabled={isLoading} variant="outline" type="submit" mt={4}>
               Canel
             </Button>
             <Button
+              width="full"
               ml={8}
+              mt={4}
               onClick={submit}
               disabled={isLoading}
               _hover={{ bg: '#2F855A' }}
               backgroundColor={'#38A169'}
               variant="outline"
-              type="submit"
-              width="full"
-              mt={4}>
+              type="submit">
               {id ? 'Edit' : 'Add'}
             </Button>
           </Flex>

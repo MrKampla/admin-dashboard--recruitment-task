@@ -15,14 +15,14 @@ export const App = () => {
       <ChakraProvider theme={theme}>
         <Provider store={store}>
           <UserProvider />
-          <Box textAlign="left" fontSize="xl">
-            <Flex p={8} direction="row" alignItems="center">
+          <Box textAlign="left" fontSize="xl" w="full">
+            <Flex p={[4, 8, 12]} direction="row" alignItems="center">
               <Text fontSize="4xl">
                 <Link to="/">Dashboard</Link>
               </Text>
               <ColorModeSwitcher marginLeft="auto" />
             </Flex>
-            <Box p={8} pt={0}>
+            <Box p={[4, 8, 12]} pt={0}>
               <RouterSwitch>
                 <Route exact path="/form/new" component={AddNewUser} />
                 <Route path="/form/:id" component={EditExistingUser} />

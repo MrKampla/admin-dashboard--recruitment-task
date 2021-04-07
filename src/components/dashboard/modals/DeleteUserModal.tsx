@@ -45,7 +45,13 @@ export const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ userId }) => {
   };
   return (
     <>
-      <Button onClick={() => onOpen()} padding="0px" aria-label="Edit" mt="auto" mb="auto" p={4} _hover={{ bg: '#E53E3E' }} backgroundColor={'#C53030'}>
+      <Button
+        onClick={() => onOpen()}
+        aria-label="Edit"
+        padding={['2px', '8px', '16px']}
+        fontSize={['12px', '16px']}
+        _hover={{ bg: '#E53E3E' }}
+        backgroundColor={'#C53030'}>
         Delete
       </Button>
       <Modal isOpen={isOpen} onClose={() => onClose()}>
