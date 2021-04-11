@@ -23,30 +23,37 @@ export const UserForm: React.FC<UserFormProps> = ({ updateOrAdd }) => {
 
   const submit = () => {
     setIsLoading(true);
+    const maxIdOfExistingUsers = users.length > 0 ? Math.max(...users.map((x) => x.id)) + 1 : 1;
+    const user: User =
+      users.find((x) => x.id === parseInt(id)) ??
+      ({
+        id: maxIdOfExistingUsers,
+        company: {},
+        email,
+        phone: '',
+        username: name,
+        website: '',
+        address: { city: 'N/A' },
+        name,
+      } as User);
+
     dispatch(
-      updateOrAdd(
-        {
-          id: isNewUser ? Math.max(...users.map((x) => x.id)) + 1 : +id,
-          address: users.map((x) => x.address)[Math.floor(Math.random() * users.length)],
-          company: users.map((x) => x.company)[Math.floor(Math.random() * users.length)],
-          email,
-          username: name,
-          name: name,
-          phone: users.map((x) => x.phone)[Math.floor(Math.random() * users.length)],
-          website: users.map((x) => x.website)[Math.floor(Math.random() * users.length)],
+      updateOrAdd(user, {
+        thenCb: () => {
+          toast({
+            description: isNewUser ? 'Successfully added new user' : 'Successfully Changed new user',
+            status: 'success',
+            position: 'top-right',
+            isClosable: true,
+          });
+          setIsLoading(false);
+          history.push('/');
         },
-        {
-          thenCb: () => {
-            toast({ description: isNewUser ? 'Successfully added new user' : 'Successfully Changed new user', status: 'success', position: 'top-right' });
-            setIsLoading(false);
-            history.push('/');
-          },
-          catchCb: () => {
-            toast({ description: 'Something went wrong', status: 'error', position: 'top-right' });
-            setIsLoading(false);
-          },
-        }
-      )
+        catchCb: () => {
+          toast({ description: 'Something went wrong', status: 'error', position: 'top-right' });
+          setIsLoading(false);
+        },
+      })
     );
   };
 
@@ -71,7 +78,7 @@ export const UserForm: React.FC<UserFormProps> = ({ updateOrAdd }) => {
           </FormControl>
           <Flex maxWidth="sm" marginLeft="auto" mt={8}>
             <Button width="full" onClick={() => history.push('/')} disabled={isLoading} variant="outline" type="submit" mt={4}>
-              Canel
+              Cancel
             </Button>
             <Button
               width="full"

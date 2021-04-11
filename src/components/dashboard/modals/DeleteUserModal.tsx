@@ -32,7 +32,7 @@ export const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ userId }) => {
     dispatch(
       deleteUser(userToDelete, {
         thenCb: () => {
-          toast({ description: 'Successfully deleted user', status: 'success', position: 'top-right' });
+          toast({ description: 'Successfully deleted user', status: 'success', position: 'top-right', isClosable: true });
           setIsLoading(false);
           onClose();
         },
